@@ -189,4 +189,8 @@ public class MatchDao extends StringEntityDao<Match> {
             }
         });
     }
+
+    public void calculateBenefit(String matchTime) {
+
+    }
 }

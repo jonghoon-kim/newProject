@@ -1,7 +1,11 @@
-import dao.base.ParameterSetter;
+import data.BettingDao;
+import data.MatchDao;
 import data.MemberDao;
+import entities.Betting;
+import entities.Match;
+import entities.Member;
+import entities.Team;
 
-import java.util.List;
 import java.util.Scanner;
 
 
@@ -13,7 +17,7 @@ import java.util.Scanner;
 팀 테이블 내용 보기
 
  */
-public class BettingModule {
+public class BettingProgram {
     private boolean isLogin = false;
 
     private boolean exit = false;
@@ -28,7 +32,7 @@ public class BettingModule {
         this.exit = exit;
     }
 
-    public boolean login(){
+    public boolean loginFoo(){
         String id;
         String password;
 
@@ -41,10 +45,15 @@ public class BettingModule {
         password = sc.nextLine();
 
         //TODO:
-        //return MemberDao.getInstance().insert(id,password,INITIAL_BALANCE);
-        MemberDao entity = new MemberDao;
+       Member member = MemberDao.getInstance().getByKey(id);
+       if (member == null){
+           System.out.println("");
+           return false;
+       }
+       if (member.getPassword().equals(password)){
+          return true;
+       }
 
-        String querySearchId = entity.getByKey(id);
         if(querySearchId != null){
             String queryGetPassword = "select password from Member where id = " + password;
             if(queryGetPassword == password) {
@@ -54,17 +63,18 @@ public class BettingModule {
             else
                 return false;
         }
-
+        return true;
     }
 
-    public boolean logout(){
+    public boolean logoutFoo(){
         //TODO:
         setLogin(false);
         return false;
     }
 
-    public boolean join(){
+    public boolean join()Foo{
         //TODO: 기능구현 Member 테이블에 insert
+        //사용 안 하는 메서드
         //초기 보유잔액(balance) INITIAL_BALANCE 사용
         MemberDao entity = new MamberDao;
         entity = entity.readEntity();
@@ -81,18 +91,15 @@ public class BettingModule {
 
     public Match selectMatch(){
         System.out.println("배팅할 게임 번호를 입력하세요.");
-        //bettingNo(pk)로 베팅할 게임 선택
 
         Scanner sc = new Scanner(System.in);
 
         String matchKey = sc.nextLine();
-
+        //bettingNo(pk)로 베팅할 게임 선택
         return MatchDao.getInstance().getByKey(matchKey);
     }
 
     public Team selectTeam(Match match){
-
-
         String command=null;
         Scanner sc = new Scanner(System.in);
         while(true){
@@ -118,14 +125,22 @@ public class BettingModule {
         //System.out.println();
     }
 
+    public void scanInt(){
+
+    }
+    public void scanString(){
+
+    }
     public boolean betting(){
         //TODO:기능 구현
-        Betting betting=new Betting();
+        //베팅할 매치 불러오기
+
+        Betting newBetting=new Betting();
 
         Match selectedMatch=null;
         Team selectedTeam=null;
 
-        String matchTime=null;
+       String matchTime=null;
         int bettingMoney;
         String battingTeam;
         //allocationMoney???
@@ -137,6 +152,8 @@ public class BettingModule {
 
         }  //selectMatch가 정상값이 나올떄까지 반복
         matchTime = selectedMatch.getMatchTime();
+
+
 
         while(selectedTeam==null){
             selectedTeam = selectTeam();
@@ -154,7 +171,7 @@ public class BettingModule {
 
     public void showMenu(){
         String menuString=null;
-        if(isLogin()) {
+        if(login.isLogin()) {
             menuString = "MENU | Logout(O) Betting(B) Exit(X)";
         } else
             menuString = "MENU | Login(L) Join(J) Exit(X)";
@@ -163,30 +180,40 @@ public class BettingModule {
     }
 
     public static void main(String[] args) {
-        BettingModule betting = new BettingModule();
+
+        //tring matchTime = "";
+        //MatchDao.getInstance().calculateBenefit(matchTime);
+        BettingManager bettingManager = new BettingManager();
+
+        BettingProgram betting = new BettingProgram();
+
+        MemberManager memberManager = new MemberManager();
 
         String inputString;
         String command;
 
         while(true)  {
             betting.showMenu(); //L:login J:join B:betting(login) X:exit
+            /*
             Scanner sc = new Scanner(System.in);
 
 
             inputString = sc.nextLine();
             command = inputString.toLowerCase();
+            */
+            ;
 
-            switch (command){
+            switch (betting.inputCommand()){
                 case "l":
-                    betting.login();
+                    memberManager.login();
                     break;
                 case "o":
-                    betting.logout();
+                   memberManager.logout();
                 case "j":
-                    betting.join();
+                    memberManager.join();
                     break;
                 case "b":
-                    betting.betting();
+                    bettingManager.betting();
                     break;
                 case "x":
                     betting.setExit(true);
@@ -200,5 +227,9 @@ public class BettingModule {
                 break;
         }
 
+    }
+
+    private String inputCommand() {
+        return null;
     }
 }

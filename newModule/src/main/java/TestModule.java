@@ -1,5 +1,5 @@
 public class TestModule {
-    public static BettingModule betting = new BettingModule();
+    public static BettingProgram betting = new BettingProgram();
     public static void main(String[] args) {
         betting.betting();
     }

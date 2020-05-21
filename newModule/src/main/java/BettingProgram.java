@@ -22,7 +22,7 @@ public class BettingProgram {
 
     private boolean exit = false;
 
-    private Login login = Login.getInstance();
+    //private Login login = Login.getInstance();
 
     public boolean isExit() {
         return exit;
@@ -32,61 +32,11 @@ public class BettingProgram {
         this.exit = exit;
     }
 
-    public boolean loginFoo(){
-        String id;
-        String password;
-
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("아이디를 입력하세요.:");
-        id = sc.nextLine();
-
-        System.out.println("비밀번호를 입력하세요.:");
-        password = sc.nextLine();
-
-        //TODO:
-       Member member = MemberDao.getInstance().getByKey(id);
-       if (member == null){
-           System.out.println("");
-           return false;
-       }
-       if (member.getPassword().equals(password)){
-          return true;
-       }
-
-        if(querySearchId != null){
-            String queryGetPassword = "select password from Member where id = " + password;
-            if(queryGetPassword == password) {
-                setsetLogin(true);
-                return true;
-            }
-            else
-                return false;
-        }
-        return true;
-    }
-
-    public boolean logoutFoo(){
-        //TODO:
-        setLogin(false);
-        return false;
-    }
-
-    public boolean join()Foo{
-        //TODO: 기능구현 Member 테이블에 insert
-        //사용 안 하는 메서드
-        //초기 보유잔액(balance) INITIAL_BALANCE 사용
-        MemberDao entity = new MamberDao;
-        entity = entity.readEntity();
-        entity.insert(entity);
-    }
-
     public void showMatch(){
         //TODO:
         //경기일정 보기(현재 날짜 이후 베팅가능한 경기만)
         //select(match 테이블)
         // 조건 - 결과(이긴팀)값이 null)
-
     }
 
     public Match selectMatch(){
@@ -117,8 +67,6 @@ public class BettingProgram {
                     System.out.println("입력이 잘못되었습니다.다시 입력하세요.");
             }
         }
-
-
 
         //match.getAwayTeam();
         //match.getHomeTeam()
@@ -180,14 +128,11 @@ public class BettingProgram {
     }
 
     public static void main(String[] args) {
-
         //tring matchTime = "";
         //MatchDao.getInstance().calculateBenefit(matchTime);
         BettingManager bettingManager = new BettingManager();
-
         BettingProgram betting = new BettingProgram();
-
-        MemberManager memberManager = new MemberManager();
+        MemberManager.getInstance().join();
 
         String inputString;
         String command;
@@ -205,12 +150,13 @@ public class BettingProgram {
 
             switch (betting.inputCommand()){
                 case "l":
-                    memberManager.login();
+                    MemberManager.getInstance().login();
                     break;
                 case "o":
-                   memberManager.logout();
+                   MemberManager.getInstance().logout();
+                   break;
                 case "j":
-                    memberManager.join();
+                    MemberManager.getInstance().join();
                     break;
                 case "b":
                     bettingManager.betting();

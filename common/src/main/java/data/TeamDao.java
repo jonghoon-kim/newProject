@@ -1,7 +1,7 @@
 package data;
 
-import dao.base.ParameterSetter;
 import dao.base.StringKeyEntityDao;
+import data.base.StringEntityDao;
 import entities.Team;
 import lombok.SneakyThrows;
 
@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class TeamDao extends StringKeyEntityDao<Team> {
+public class TeamDao extends StringEntityDao<Team> {
     //region singleton
         private TeamDao() {
         }
@@ -62,13 +62,14 @@ public class TeamDao extends StringKeyEntityDao<Team> {
     }
 
     @Override
-    public int insert(Team entity) {
+    public boolean insert(Team entity) {
             //language=TSQL
         String query = "insert into Team values (?, ?, ?, ?)";
 
-        return execute(query, new ParameterSetter() {
+        return execute(query, new data.ParameterSetter() {
+            @SneakyThrows
             @Override
-            public void setValues(PreparedStatement preparedStatement) throws SQLException {
+            public void setValue(PreparedStatement preparedStatement) {
                 preparedStatement.setString(1, entity.getTeam()); // id 넣는게 맞는지 볼 것
                 preparedStatement.setInt(2, entity.getWin());
                 preparedStatement.setInt(3, entity.getLose());
@@ -78,13 +79,14 @@ public class TeamDao extends StringKeyEntityDao<Team> {
     }
 
     @Override
-    public int update(Team entity) {
+    public boolean update(Team entity) {
             //language=TSQL
         String query = "update Team set Win = ?, Lose = ?, HomeGround = ? where Team = ?";
 
         return execute(query, new ParameterSetter() {
+            @SneakyThrows
             @Override
-            public void setValues(PreparedStatement preparedStatement) throws SQLException {
+            public void setValue(PreparedStatement preparedStatement) {
                 preparedStatement.setInt(1, entity.getWin());
                 preparedStatement.setInt(2, entity.getLose());
                 preparedStatement.setString(3, entity.getHomeGround());

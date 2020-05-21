@@ -39,7 +39,7 @@ public class MemberManager {
         if(selectedMember == null)
             return false;
         if(selectedMember.getPassword().equals(memberBean.getPassword())){
-            setCurrentMember(memberBean);;
+            setCurrentMember(memberBean);
             return true;
         }
 
@@ -58,16 +58,13 @@ public class MemberManager {
 
     }
 
-    public boolean joinProcess(){
+    public boolean join(){
         //TODO: 기능구현 Member 테이블에 insert
         //사용 안 하는 메서드
         //초기 보유잔액(balance) INITIAL_BALANCE 사용
-        MemberDao.getInstance().
+        //MemberDao.getInstance().
+            return false;
         }
-
-    public void join(){
-        joinProcess();
-    }
 
     private void loginMenu(){
         Scanner sc = new Scanner(System.in);

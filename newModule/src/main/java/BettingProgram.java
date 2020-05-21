@@ -74,43 +74,7 @@ public class BettingProgram {
     public void scanString(){
 
     }
-    public boolean betting(){
-        //TODO:기능 구현
-        //베팅할 매치 불러오기
 
-        Betting newBetting=new Betting();
-
-        Match selectedMatch=null;
-        Team selectedTeam=null;
-
-       String matchTime=null;
-        int bettingMoney;
-        String battingTeam;
-        //allocationMoney???
-        String id = login.getId();
-
-        //select match
-        while(selectedMatch==null){
-            selectedMatch = selectMatch();
-
-        }  //selectMatch가 정상값이 나올떄까지 반복
-        matchTime = selectedMatch.getMatchTime();
-
-
-
-        while(selectedTeam==null){
-            selectedTeam = selectTeam();
-        }
-        while(true){
-            MatchDao.getInstance().getByKey()
-            BettingDao.getInstance().insert();
-            //베팅할 금액 입력
-
-            //베팅 테이블에 insert
-        }
-
-        return false;
-    }
 
     public void showMenu(){
         String menuString=null;
@@ -127,9 +91,6 @@ public class BettingProgram {
         //MatchDao.getInstance().calculateBenefit(matchTime);
         BettingManager bettingManager = new BettingManager();
         BettingProgram betting = new BettingProgram();
-        MemberManager.getInstance().joinProcess();
-
-
 
         while(true)  {
             betting.showMenu(); //L:login J:join B:betting(login) X:exit

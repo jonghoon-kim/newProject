@@ -104,7 +104,7 @@ public class MatchDao extends StringEntityDao<Match> {
             @SneakyThrows
             @Override
             public void setValue(PreparedStatement statement) {
-                statement.setBigDecimal(1, awayAllocation;
+                statement.setBigDecimal(1, awayAllocation);
             }
         });
     }

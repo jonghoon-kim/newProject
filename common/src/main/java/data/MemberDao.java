@@ -1,7 +1,8 @@
 package data;
 
-import dao.base.ParameterSetter;
-import dao.base.StringKeyEntityDao;
+
+//import dao.base.StringKeyEntityDao;
+import data.base.StringEntityDao;
 import entities.Member;
 import lombok.SneakyThrows;
 
@@ -9,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class MemberDao extends StringKeyEntityDao<Member> {
+public class MemberDao extends StringEntityDao<Member> {
     //region singleton
         private MemberDao() {
         }
@@ -61,28 +62,30 @@ public class MemberDao extends StringKeyEntityDao<Member> {
     }
 
     @Override
-    public int insert(Member entity) {
+    public boolean insert(Member entity) {
         //language=TSQL
         String query = "insert into Member values (?, ?, ?)";
 
         return execute(query, new ParameterSetter() {
+            @SneakyThrows
             @Override
-            public void setValues(PreparedStatement preparedStatement) throws SQLException {
+            public void setValue(PreparedStatement preparedStatement) {
                 preparedStatement.setString(1, entity.getId()); // id 넣는게 맞는지 볼 것
-                preparedStatement.setString(1, entity.getPassword());
-                preparedStatement.setInt(2, entity.getBalance());
+                preparedStatement.setString(2, entity.getPassword());
+                preparedStatement.setInt(3, entity.getBalance());
             }
         });
     }
 
     @Override
-    public int update(Member entity) {
+    public boolean update(Member entity) {
         //language=TSQL
         String query = "update Member set Password = ?, Balance = ? where Id = ?";
 
         return execute(query, new ParameterSetter() {
+            @SneakyThrows
             @Override
-            public void setValues(PreparedStatement preparedStatement) throws SQLException {
+            public void setValue(PreparedStatement preparedStatement) {
                 preparedStatement.setString(1, entity.getPassword());
                 preparedStatement.setInt(2, entity.getBalance());
                 preparedStatement.setString(3, entity.getId());

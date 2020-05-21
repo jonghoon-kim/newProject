@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class BettingModule {
     private boolean isLogin = false;
-    private boolean loginId;
+
     private boolean exit = false;
 
     private Login login = Login.getInstance();
@@ -48,7 +48,7 @@ public class BettingModule {
         if(querySearchId != null){
             String queryGetPassword = "select password from Member where id = " + password;
             if(queryGetPassword == password) {
-                setLogin(true);
+                setsetLogin(true);
                 return true;
             }
             else

@@ -2,10 +2,12 @@ package data;
 
 import data.base.IntEntityDao;
 import entities.Betting;
+import entities.Match;
 import lombok.SneakyThrows;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class BettingDao extends IntEntityDao<Betting> {
         //region singleton
@@ -24,9 +26,17 @@ public class BettingDao extends IntEntityDao<Betting> {
             //endregion
 
     @Override
-    protected String getByKeyQuery() {
-        return "select * from betting where bettingNo = ?";
-    }
+    protected String getByKeyQuery() { return "select * from betting where bettingNo = ?"; }
+
+    public String getByMatchTimeQuery() { return "select * from betting where matchTime = ?"; }
+
+    public String getByBettingMoneyQuery() { return "select * from betting where bettingMoney = ?"; }
+
+    public String getByBettingTeamQuery() { return "select * from betting where bettingTeam = ?"; }
+
+    public String getByAllocationMoney() { return "select * from betting where allocationMoney = ?"; }
+
+    public String getById() { return "select * from betting where id = ?"; }
 
     @Override
     protected String deleteByKeyQuery() {
@@ -55,6 +65,81 @@ public class BettingDao extends IntEntityDao<Betting> {
     @Override
     protected String getAllQuery() {
         return "select * from betting";
+    }
+
+    @SneakyThrows
+    public ArrayList<Betting> getByMatchTime(String matchTime) {
+        //language=TSQL
+        String query = getByMatchTimeQuery();
+
+        // verbose / decorating code
+        return getMany(query, new ParameterSetter() {
+            @SneakyThrows
+            @Override
+            public void setValue(PreparedStatement statement) {
+                statement.setString(1, matchTime);
+            }
+        });
+    }
+
+    @SneakyThrows
+    public ArrayList<Betting> getByBettingMoney(int bettingMoney) {
+        //language=TSQL
+        String query = getByBettingMoneyQuery();
+
+        // verbose / decorating code
+        return getMany(query, new ParameterSetter() {
+            @SneakyThrows
+            @Override
+            public void setValue(PreparedStatement statement) {
+                statement.setInt(1, bettingMoney);
+            }
+        });
+    }
+
+    @SneakyThrows
+    public ArrayList<Betting> getByBettingTeam(String bettingTeam) {
+        //language=TSQL
+        String query = getByBettingTeamQuery();
+
+        // verbose / decorating code
+        return getMany(query, new ParameterSetter() {
+            @SneakyThrows
+            @Override
+            public void setValue(PreparedStatement statement) {
+                statement.setString(1, bettingTeam);
+            }
+        });
+    }
+
+    @SneakyThrows
+    public ArrayList<Betting> getByAllocationMoney(int allocationMoney) {
+        //language=TSQL
+        String query = getByAllocationMoney();
+
+        // verbose / decorating code
+        return getMany(query, new ParameterSetter() {
+            @SneakyThrows
+            @Override
+            public void setValue(PreparedStatement statement) {
+                statement.setInt(1, allocationMoney);
+            }
+        });
+    }
+
+    @SneakyThrows
+    public ArrayList<Betting> getById(String id) {
+        //language=TSQL
+        String query = getById();
+
+        // verbose / decorating code
+        return getMany(query, new ParameterSetter() {
+            @SneakyThrows
+            @Override
+            public void setValue(PreparedStatement statement) {
+                statement.setString(1, id);
+            }
+        });
     }
 
     @SneakyThrows

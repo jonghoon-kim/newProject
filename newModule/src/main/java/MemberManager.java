@@ -1,4 +1,3 @@
-import dao.base.StringKeyEntityDao;
 import data.MemberDao;
 import entities.Member;
 
@@ -6,9 +5,8 @@ import java.util.Scanner;
 
 public class MemberManager {
 
-    private String id;
-    private String password;
-    private boolean isLogin;
+    private Member currentMember=null;  //현재 로그인한 멤버
+    private Member memberBean = new Member();
 
     //region singleton
     private MemberManager() {
@@ -28,21 +26,23 @@ public class MemberManager {
     public boolean login(){
         loginMenu();
 
-        Member query = MemberDao.getInstance().getByKey(id);
-        if(query == null)
+        Member selectedMember = MemberDao.getInstance().getByKey(memberBean.getId());
+        if(selectedMember == null)
             return false;
-        if(query.getPassword().equals(password))
+        if(selectedMember.getPassword().equals(memberBean.getPassword())){
+            currentMember = memberBean;
             return true;
+        }
+
         else
             System.out.println("password is wrong!");
         return false;
     }
 
 
-    public boolean logout(){
+    public void logout(){
         //TODO:
-        setLogin(false);
-        return false;
+        currentMember = null;
     }
 
     public boolean join(){
@@ -55,9 +55,9 @@ public class MemberManager {
     private void loginMenu(){
         Scanner sc = new Scanner(System.in);
         System.out.println("아이디를 입력하세요.:");
-        id = sc.nextLine();
+        memberBean.setId(sc.nextLine());
         System.out.println("비밀번호를 입력하세요.:");
-        password = sc.nextLine();
+        memberBean.setPassword(sc.nextLine());
     }
 
 }

@@ -1,4 +1,8 @@
+import dao.base.ParameterSetter;
+
+import java.util.List;
 import java.util.Scanner;
+package ;
 
 /*
 경기일정 보기(현재 날짜 이후 베팅가능한 경기만)
@@ -51,9 +55,18 @@ public class BettingModule {
 
         //TODO:
         //return MemberDao.getInstance().insert(id,password,INITIAL_BALANCE);
-        setLogin(true);
-        return true;
+        MemberDao entity = new MemberDao;
 
+        String querySearchId = entity.getByKey(id);
+        if(querySearchId != null){
+            String queryGetPassword = "select password from Member where id = " + password;
+            if(queryGetPassword == password) {
+                setLogin(true);
+                return true;
+            }
+            else
+                return false;
+        }
 
     }
 
@@ -66,10 +79,9 @@ public class BettingModule {
     public boolean join(){
         //TODO: 기능구현 Member 테이블에 insert
         //초기 보유잔액(balance) INITIAL_BALANCE 사용
-
-        final int INITIAL_BALANCE = 100000;
-        System.out.println("join");
-        return false;
+        MemberDao entity = new MamberDao;
+        entity = entity.readEntity();
+        entity.insert(entity);
     }
 
     public void showMatch(){
@@ -84,7 +96,7 @@ public class BettingModule {
         //TODO:기능 구현
 
         //bettingNo(pk)로 베팅할 게임 선택
-        
+
         //베팅할 금액 입력
 
         //베팅 테이블에 insert

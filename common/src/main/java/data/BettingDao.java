@@ -34,7 +34,7 @@ public class BettingDao extends IntEntityDao<Betting> {
         return "delete betting where bettingNo = ?";
     }
 
-    @SneakyThrows
+    @lombok.SneakyThrows
     @Override
     protected Betting readEntity(ResultSet result) {
         Betting entity = new Betting();
@@ -57,13 +57,12 @@ public class BettingDao extends IntEntityDao<Betting> {
         return "select * from betting";
     }
 
-    @SneakyThrows
     public boolean insert(Betting entity) {
         //language=TSQL
         String query = "insert into Betting values (?, ?, ?, ?, ?, ?)";
 
         return execute(query, new ParameterSetter() {
-            @SneakyThrows
+            @lombok.SneakyThrows
             @Override
             public void setValue(PreparedStatement statement) {
                 statement.setInt(1, entity.getBettingNo());
@@ -76,14 +75,13 @@ public class BettingDao extends IntEntityDao<Betting> {
         });
     }
 
-    @SneakyThrows
     public boolean update(Betting entity) {
         //language=TSQL
         String query = "update Betting set matchTime = ?, bettingMoney = ?, bettingTeam = ?," +
                 " allocationMoney = ?, id = ? where matchTime = ?";
 
         return execute(query, new ParameterSetter() {
-            @SneakyThrows
+            @lombok.SneakyThrows
             @Override
             public void setValue(PreparedStatement statement) {
                 statement.setInt(1, entity.getBettingNo());

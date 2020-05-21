@@ -24,7 +24,7 @@ public class TeamDao extends StringKeyEntityDao<Team> {
         }
         //endregion
 
-    @SneakyThrows
+    @lombok.SneakyThrows
     @Override
     protected Team readEntity(ResultSet resultSet) {
             Team entity = new Team();

@@ -36,7 +36,7 @@ public class MatchDao extends StringEntityDao<Match> {
         return "delete betting where matchTime = ?";
     }
 
-    @SneakyThrows
+    @lombok.SneakyThrows
     @Override
     protected Match readEntity(ResultSet result) {
         Match entity = new Match();
@@ -61,13 +61,12 @@ public class MatchDao extends StringEntityDao<Match> {
         return "select * from Match";
     }
 
-    @SneakyThrows
     public boolean insert(Match entity) {
         //language=TSQL
         String query = "insert into Match values (?, ?, ?, ?, ?, ?)";
 
         return execute(query, new ParameterSetter() {
-            @SneakyThrows
+            @lombok.SneakyThrows
             @Override
             public void setValue(PreparedStatement statement) {
                 statement.setString(1, entity.getHomeTeam());
@@ -80,7 +79,6 @@ public class MatchDao extends StringEntityDao<Match> {
         });
     }
 
-    @SneakyThrows
     public boolean update(Match entity) {
         //language=TSQL
         String query = "update Match set homeTeam = ?," +
@@ -88,7 +86,7 @@ public class MatchDao extends StringEntityDao<Match> {
                 " winner = ?";
 
         return execute(query, new ParameterSetter() {
-            @SneakyThrows
+            @lombok.SneakyThrows
             @Override
             public void setValue(PreparedStatement statement) {
                 statement.setString(1, entity.getHomeTeam());

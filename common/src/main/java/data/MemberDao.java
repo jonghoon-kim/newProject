@@ -24,7 +24,7 @@ public class MemberDao extends StringKeyEntityDao<Member> {
         }
         //endregion
 
-    @SneakyThrows
+    @lombok.SneakyThrows
     @Override
     protected Member readEntity(ResultSet resultSet) {
             Member entity = new Member();

@@ -127,7 +127,7 @@ public class BettingProgram {
         //MatchDao.getInstance().calculateBenefit(matchTime);
         BettingManager bettingManager = new BettingManager();
         BettingProgram betting = new BettingProgram();
-        MemberManager.getInstance().join();
+        MemberManager.getInstance().joinProcess();
 
 
 

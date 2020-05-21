@@ -47,8 +47,10 @@ public class MemberManager {
             System.out.println("패스워드가 잘못되었습니다.");
         return false;
     }
-    //로그인 성공시까지 loginProcess() 호출
+
     public void login(){
+        //로그인 성공시까지 반복해서 loginProcess() 호출
+        loginProcess();
 
     }
     public void logout(){
@@ -61,12 +63,16 @@ public class MemberManager {
 
     }
 
-    public boolean join(){
+    public boolean joinProcess(){
         //TODO: 기능구현 Member 테이블에 insert
         //사용 안 하는 메서드
         //초기 보유잔액(balance) INITIAL_BALANCE 사용
         MemberDao.getInstance().
-            }
+        }
+
+    public void join(){
+        joinProcess();
+    }
 
     private void loginMenu(){
         Scanner sc = new Scanner(System.in);

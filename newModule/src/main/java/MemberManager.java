@@ -31,8 +31,8 @@ public class MemberManager {
     public void setCurrentMember(Member currentMember) {
         this.currentMember = currentMember;
     }
-
-    public boolean login(){
+    //로그인 시도 1회
+    public boolean loginProcess(){
         loginMenu();
 
         Member selectedMember = MemberDao.getInstance().getByKey(memberBean.getId());
@@ -44,14 +44,21 @@ public class MemberManager {
         }
 
         else
-            System.out.println("password is wrong!");
+            System.out.println("패스워드가 잘못되었습니다.");
         return false;
     }
+    //로그인 성공시까지 loginProcess() 호출
+    public void login(){
 
-
+    }
     public void logout(){
-        //TODO:
-        currentMember = null;
+        if(getCurrentMember()==null)
+            System.out.println("현재 로그인 상태가 아닙니다.");
+        else{
+            System.out.println("로그아웃 하였습니다.");
+            setCurrentMember(null);
+        }
+
     }
 
     public boolean join(){

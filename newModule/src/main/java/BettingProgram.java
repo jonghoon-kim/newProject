@@ -1,9 +1,7 @@
 import data.BettingDao;
 import data.MatchDao;
-import data.MemberDao;
 import entities.Betting;
 import entities.Match;
-import entities.Member;
 import entities.Team;
 
 import java.util.Scanner;
@@ -18,11 +16,8 @@ import java.util.Scanner;
 
  */
 public class BettingProgram {
-    private boolean isLogin = false;
 
     private boolean exit = false;
-
-    //private Login login = Login.getInstance();
 
     public boolean isExit() {
         return exit;
@@ -119,7 +114,7 @@ public class BettingProgram {
 
     public void showMenu(){
         String menuString=null;
-        if(login.isLogin()) {
+        if(MemberManager.getInstance().getCurrentMember()!=null) {
             menuString = "MENU | Logout(O) Betting(B) Exit(X)";
         } else
             menuString = "MENU | Login(L) Join(J) Exit(X)";
@@ -134,19 +129,10 @@ public class BettingProgram {
         BettingProgram betting = new BettingProgram();
         MemberManager.getInstance().join();
 
-        String inputString;
-        String command;
+
 
         while(true)  {
             betting.showMenu(); //L:login J:join B:betting(login) X:exit
-            /*
-            Scanner sc = new Scanner(System.in);
-
-
-            inputString = sc.nextLine();
-            command = inputString.toLowerCase();
-            */
-            ;
 
             switch (betting.inputCommand()){
                 case "l":
@@ -176,6 +162,13 @@ public class BettingProgram {
     }
 
     private String inputCommand() {
-        return null;
+        Scanner sc = new Scanner(System.in);
+        String inputString;
+        String command;
+
+        inputString = sc.nextLine();
+        command = inputString.toLowerCase();
+        return command;
     }
+
 }

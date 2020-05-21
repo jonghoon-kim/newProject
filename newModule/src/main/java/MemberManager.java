@@ -23,6 +23,15 @@ public class MemberManager {
 
     //endregion
 
+
+    public Member getCurrentMember() {
+        return currentMember;
+    }
+
+    public void setCurrentMember(Member currentMember) {
+        this.currentMember = currentMember;
+    }
+
     public boolean login(){
         loginMenu();
 
@@ -30,7 +39,7 @@ public class MemberManager {
         if(selectedMember == null)
             return false;
         if(selectedMember.getPassword().equals(memberBean.getPassword())){
-            currentMember = memberBean;
+            setCurrentMember(memberBean);;
             return true;
         }
 

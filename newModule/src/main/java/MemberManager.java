@@ -31,8 +31,8 @@ public class MemberManager {
     public void setCurrentMember(Member currentMember) {
         this.currentMember = currentMember;
     }
-    //로그인 시도 1회
-    public boolean loginProcess(){
+
+    public boolean login(){
         loginMenu();
 
         Member selectedMember = MemberDao.getInstance().getByKey(memberBean.getId());
@@ -48,11 +48,6 @@ public class MemberManager {
         return false;
     }
 
-    public void login(){
-        //로그인 성공시까지 반복해서 loginProcess() 호출
-        loginProcess();
-
-    }
     public void logout(){
         if(getCurrentMember()==null)
             System.out.println("현재 로그인 상태가 아닙니다.");

@@ -1,8 +1,9 @@
 import dao.base.ParameterSetter;
+import data.MemberDao;
 
 import java.util.List;
 import java.util.Scanner;
-package ;
+
 
 /*
 경기일정 보기(현재 날짜 이후 베팅가능한 경기만)
@@ -92,14 +93,76 @@ public class BettingModule {
 
     }
 
-    public boolean betting(){
-        //TODO:기능 구현
-
+    public Match selectMatch(){
+        System.out.println("배팅할 게임 번호를 입력하세요.");
         //bettingNo(pk)로 베팅할 게임 선택
 
-        //베팅할 금액 입력
+        Scanner sc = new Scanner(System.in);
 
-        //베팅 테이블에 insert
+        String matchKey = sc.nextLine();
+
+        return MatchDao.getInstance().getByKey(matchKey);
+    }
+
+    public Team selectTeam(Match match){
+
+
+        String command=null;
+        Scanner sc = new Scanner(System.in);
+        while(true){
+            System.out.println("팀을 선택하세요. 1.HomeTeam 2.AwayTeam");
+            System.out.println("->");
+
+            command = sc.nextLine();
+
+            switch (command){
+                case "1":
+                    break;
+                case "2":
+                    break;
+                default:
+                    System.out.println("입력이 잘못되었습니다.다시 입력하세요.");
+            }
+        }
+
+
+
+        //match.getAwayTeam();
+        //match.getHomeTeam()
+        //System.out.println();
+    }
+
+    public boolean betting(){
+        //TODO:기능 구현
+        Betting betting=new Betting();
+
+        Match selectedMatch=null;
+        Team selectedTeam=null;
+
+        String matchTime=null;
+        int bettingMoney;
+        String battingTeam;
+        //allocationMoney???
+        String id = login.getId();
+
+        //select match
+        while(selectedMatch==null){
+            selectedMatch = selectMatch();
+
+        }  //selectMatch가 정상값이 나올떄까지 반복
+        matchTime = selectedMatch.getMatchTime();
+
+        while(selectedTeam==null){
+            selectedTeam = selectTeam();
+        }
+        while(true){
+            MatchDao.getInstance().getByKey()
+            BettingDao.getInstance().insert();
+            //베팅할 금액 입력
+
+            //베팅 테이블에 insert
+        }
+
         return false;
     }
 

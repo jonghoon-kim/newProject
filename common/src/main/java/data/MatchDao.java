@@ -5,25 +5,27 @@ import data.base.StringEntityDao;
 import entities.Match;
 import lombok.SneakyThrows;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class MatchDao extends StringEntityDao<Match> {
 
-        //region singleton
-            private MatchDao() {
-            }
+    //region singleton
+    private MatchDao() {
+    }
 
-            private static MatchDao _instance;
+    private static MatchDao _instance;
 
-            public static MatchDao getInstance(){
-                if (_instance == null)
-                    _instance = new MatchDao();
+    public static MatchDao getInstance(){
+        if (_instance == null)
+            _instance = new MatchDao();
 
-                return _instance;
-            }
+        return _instance;
+    }
 
-            //endregion
+    //endregion
 
     @Override
     protected String getByKeyQuery() {
@@ -36,7 +38,94 @@ public class MatchDao extends StringEntityDao<Match> {
         return "delete betting where matchTime = ?";
     }
 
-    @lombok.SneakyThrows
+    public String getByHomeTeamQuery() { return "select * from Match where homeTeam = ?"; }
+
+    public String getByAwayTeamQuery() { return "select * from Match where awayTeam = ?"; }
+
+    public String getByHomeAllocationQuery() { return "select * from Match where homeAllocation = ?"; }
+
+    public String getByAwayAllocationQuery() { return "select * from Match where awayAllocation = ?"; }
+
+    public String getByWinnerQuery() { return "select * from Match where winner = ?"; }
+
+    @SneakyThrows
+    public ArrayList<Match> getByHomeTeam(String homeTeam) {
+        //language=TSQL
+        String query = getByHomeTeamQuery();
+
+        // verbose / decorating code
+        return getMany(query, new ParameterSetter() {
+            @SneakyThrows
+            @Override
+            public void setValue(PreparedStatement statement) {
+                statement.setString(1, homeTeam);
+            }
+        });
+    }
+
+    @SneakyThrows
+    public ArrayList<Match> getByAwayTeam(String awayTeam) {
+        //language=TSQL
+        String query = getByAwayTeamQuery();
+
+        // verbose / decorating code
+        return getMany(query, new ParameterSetter() {
+            @SneakyThrows
+            @Override
+            public void setValue(PreparedStatement statement) {
+                statement.setString(1, awayTeam);
+            }
+        });
+    }
+
+    @SneakyThrows
+    public ArrayList<Match> getByHomeAllocation(BigDecimal homeAllocation) {
+        //language=TSQL
+        String query = getByHomeAllocationQuery();
+
+        // verbose / decorating code
+        return getMany(query, new ParameterSetter() {
+            @SneakyThrows
+            @Override
+            public void setValue(PreparedStatement statement) {
+                statement.setBigDecimal(1, homeAllocation);
+            }
+        });
+    }
+
+
+    @SneakyThrows
+    public ArrayList<Match> getByAwayAllocation(BigDecimal awayAllocation) {
+        //language=TSQL
+        String query = getByAwayAllocationQuery();
+
+        // verbose / decorating code
+        return getMany(query, new ParameterSetter() {
+            @SneakyThrows
+            @Override
+            public void setValue(PreparedStatement statement) {
+                statement.setBigDecimal(1, awayAllocation;
+            }
+        });
+    }
+
+    @SneakyThrows
+    public ArrayList<Match> getByWinner(String winner) {
+        //language=TSQL
+        String query = getByWinnerQuery();
+
+        // verbose / decorating code
+        return getMany(query, new ParameterSetter() {
+            @SneakyThrows
+            @Override
+            public void setValue(PreparedStatement statement) {
+                statement.setString(1, winner);
+            }
+        });
+    }
+
+
+    @SneakyThrows
     @Override
     protected Match readEntity(ResultSet result) {
         Match entity = new Match();
@@ -61,12 +150,13 @@ public class MatchDao extends StringEntityDao<Match> {
         return "select * from Match";
     }
 
+    @SneakyThrows
     public boolean insert(Match entity) {
         //language=TSQL
         String query = "insert into Match values (?, ?, ?, ?, ?, ?)";
 
         return execute(query, new ParameterSetter() {
-            @lombok.SneakyThrows
+            @SneakyThrows
             @Override
             public void setValue(PreparedStatement statement) {
                 statement.setString(1, entity.getHomeTeam());
@@ -79,6 +169,7 @@ public class MatchDao extends StringEntityDao<Match> {
         });
     }
 
+    @SneakyThrows
     public boolean update(Match entity) {
         //language=TSQL
         String query = "update Match set homeTeam = ?," +
@@ -86,7 +177,7 @@ public class MatchDao extends StringEntityDao<Match> {
                 " winner = ?";
 
         return execute(query, new ParameterSetter() {
-            @lombok.SneakyThrows
+            @SneakyThrows
             @Override
             public void setValue(PreparedStatement statement) {
                 statement.setString(1, entity.getHomeTeam());
@@ -99,4 +190,3 @@ public class MatchDao extends StringEntityDao<Match> {
         });
     }
 }
-

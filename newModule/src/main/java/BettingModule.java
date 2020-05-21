@@ -18,21 +18,7 @@ public class BettingModule {
     private boolean loginId;
     private boolean exit = false;
 
-    public boolean isLogin() {
-        return isLogin;
-    }
-
-    public void setLogin(boolean login) {
-        isLogin = login;
-    }
-
-    public boolean isLoginId() {
-        return loginId;
-    }
-
-    public void setLoginId(boolean loginId) {
-        this.loginId = loginId;
-    }
+    private Login login = Login.getInstance();
 
     public boolean isExit() {
         return exit;

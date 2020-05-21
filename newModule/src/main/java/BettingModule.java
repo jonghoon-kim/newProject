@@ -79,6 +79,8 @@ public class BettingModule {
         //TODO:
         //경기일정 보기(현재 날짜 이후 베팅가능한 경기만)
         //select(match 테이블)
+        MatchDao.getInstance().getAll();
+        MatchDao.getInstance().getByKey("");
         // 조건 - 결과(이긴팀)값이 null)
 
     }

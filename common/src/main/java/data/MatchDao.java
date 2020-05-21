@@ -5,8 +5,10 @@ import data.base.StringEntityDao;
 import entities.Match;
 import lombok.SneakyThrows;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class MatchDao extends StringEntityDao<Match> {
 
@@ -35,6 +37,93 @@ public class MatchDao extends StringEntityDao<Match> {
 
         return "delete betting where matchTime = ?";
     }
+
+    public String getByHomeTeamQuery() { return "select * from Match where homeTeam = ?"; }
+
+    public String getByAwayTeamQuery() { return "select * from Match where awayTeam = ?"; }
+
+    public String getByHomeAllocationQuery() { return "select * from Match where homeAllocation = ?"; }
+
+    public String getByAwayAllocationQuery() { return "select * from Match where awayAllocation = ?"; }
+
+    public String getByWinnerQuery() { return "select * from Match where winner = ?"; }
+
+    @SneakyThrows
+    public ArrayList<Match> getByHomeTeam(String homeTeam) {
+        //language=TSQL
+        String query = getByHomeTeamQuery();
+
+        // verbose / decorating code
+        return getMany(query, new ParameterSetter() {
+            @SneakyThrows
+            @Override
+            public void setValue(PreparedStatement statement) {
+                statement.setString(1, homeTeam);
+            }
+        });
+    }
+
+    @SneakyThrows
+    public ArrayList<Match> getByAwayTeam(String awayTeam) {
+        //language=TSQL
+        String query = getByAwayTeamQuery();
+
+        // verbose / decorating code
+        return getMany(query, new ParameterSetter() {
+            @SneakyThrows
+            @Override
+            public void setValue(PreparedStatement statement) {
+                statement.setString(1, awayTeam);
+            }
+        });
+    }
+
+    @SneakyThrows
+    public ArrayList<Match> getByHomeAllocation(BigDecimal homeAllocation) {
+        //language=TSQL
+        String query = getByHomeAllocationQuery();
+
+        // verbose / decorating code
+        return getMany(query, new ParameterSetter() {
+            @SneakyThrows
+            @Override
+            public void setValue(PreparedStatement statement) {
+                statement.setBigDecimal(1, homeAllocation);
+            }
+        });
+    }
+
+
+    @SneakyThrows
+    public ArrayList<Match> getByAwayAllocation(BigDecimal awayAllocation) {
+        //language=TSQL
+        String query = getByAwayAllocationQuery();
+
+        // verbose / decorating code
+        return getMany(query, new ParameterSetter() {
+            @SneakyThrows
+            @Override
+            public void setValue(PreparedStatement statement) {
+                statement.setBigDecimal(1, awayAllocation;
+            }
+        });
+    }
+
+    @SneakyThrows
+    public ArrayList<Match> getByWinner(String winner) {
+        //language=TSQL
+        String query = getByWinnerQuery();
+
+        // verbose / decorating code
+        return getMany(query, new ParameterSetter() {
+            @SneakyThrows
+            @Override
+            public void setValue(PreparedStatement statement) {
+                statement.setString(1, winner);
+            }
+        });
+    }
+
 
     @SneakyThrows
     @Override

@@ -3,6 +3,7 @@ package data;
 import data.base.IntEntityDao;
 import entities.Betting;
 import entities.Match;
+import helpers.ConnectionString;
 import lombok.SneakyThrows;
 
 import java.sql.PreparedStatement;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 public class BettingDao extends IntEntityDao<Betting> {
     //region singleton
     private BettingDao() {
+        ConnectionString.getInstance().initialize("jdbc:sqlserver://192.168.1.5;database=Betting;user=sa;password=3512");
     }
 
     private static BettingDao _instance;

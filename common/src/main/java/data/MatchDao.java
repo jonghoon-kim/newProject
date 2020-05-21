@@ -3,6 +3,7 @@ package data;
 
 import data.base.StringEntityDao;
 import entities.Match;
+import helpers.ConnectionString;
 import lombok.SneakyThrows;
 
 import java.math.BigDecimal;
@@ -14,6 +15,7 @@ public class MatchDao extends StringEntityDao<Match> {
 
     //region singleton
     private MatchDao() {
+        ConnectionString.getInstance().initialize("jdbc:sqlserver://192.168.1.5;database=Betting;user=sa;password=3512");
     }
 
     private static MatchDao _instance;

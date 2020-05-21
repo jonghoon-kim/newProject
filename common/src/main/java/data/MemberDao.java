@@ -4,6 +4,7 @@ package data;
 //import dao.base.StringKeyEntityDao;
 import data.base.StringEntityDao;
 import entities.Member;
+import helpers.ConnectionString;
 import lombok.SneakyThrows;
 
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 public class MemberDao extends StringEntityDao<Member> {
     //region singleton
         private MemberDao() {
+            ConnectionString.getInstance().initialize("jdbc:sqlserver://192.168.1.5;database=Betting;user=sa;password=3512");
         }
     
         private static MemberDao _instance;

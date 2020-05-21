@@ -1,0 +1,92 @@
+package data;
+
+import dao.base.ParameterSetter;
+import dao.base.StringKeyEntityDao;
+import entities.Member;
+import lombok.SneakyThrows;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class MemberDao extends StringKeyEntityDao<Member> {
+    //region singleton
+        private MemberDao() {
+        }
+    
+        private static MemberDao _instance;
+    
+        public static MemberDao getInstance(){
+            if (_instance == null)
+                _instance = new MemberDao();
+    
+            return _instance;
+        }
+        //endregion
+
+    @SneakyThrows
+    @Override
+    protected Member readEntity(ResultSet resultSet) {
+            Member entity = new Member();
+
+            entity.setId(resultSet.getString(1));
+            entity.setPassword(resultSet.getString(2));
+            entity.setBalance((resultSet.getInt(3)));
+
+        return entity;
+    }
+
+    @Override
+    protected String getCountQuery() {
+        //language=TSQL
+        return "select count(*) from Member";
+    }
+
+    @Override
+    protected String getAllQuery() {
+        //language=TSQL
+        return "select * from Member";
+    }
+
+    @Override
+    protected String getByKeyQuery() {
+        //language=TSQL
+        return "select * from Member where Id = ?";
+    }
+
+    @Override
+    protected String deleteByKeyQuery() {
+        //language=TSQL
+        return "delete Member where Id = ?";
+    }
+
+    @Override
+    public int insert(Member entity) {
+        //language=TSQL
+        String query = "insert into Member values (?, ?, ?)";
+
+        return execute(query, new ParameterSetter() {
+            @Override
+            public void setValues(PreparedStatement preparedStatement) throws SQLException {
+                preparedStatement.setString(1, entity.getId()); // id 넣는게 맞는지 볼 것
+                preparedStatement.setString(1, entity.getPassword());
+                preparedStatement.setInt(2, entity.getBalance());
+            }
+        });
+    }
+
+    @Override
+    public int update(Member entity) {
+        //language=TSQL
+        String query = "update Member set Password = ?, Balance = ? where Id = ?";
+
+        return execute(query, new ParameterSetter() {
+            @Override
+            public void setValues(PreparedStatement preparedStatement) throws SQLException {
+                preparedStatement.setString(1, entity.getPassword());
+                preparedStatement.setInt(2, entity.getBalance());
+                preparedStatement.setString(3, entity.getId());
+            }
+        });
+    }
+}

@@ -1,3 +1,6 @@
+import data.BettingDao;
+import data.MatchDao;
+
 import java.util.Scanner;
 
 /*
@@ -82,9 +85,9 @@ public class BettingModule {
 
     public boolean betting(){
         //TODO:기능 구현
-
+        System.out.println("배팅할 게임 번호를 입력하세요.");
         //bettingNo(pk)로 베팅할 게임 선택
-        
+
         //베팅할 금액 입력
 
         //베팅 테이블에 insert

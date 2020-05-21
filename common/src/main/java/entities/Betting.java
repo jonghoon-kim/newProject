@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Data
 public class Betting extends Entity {
     private int bettingNo;
-    private LocalDateTime matchTime;
+    private String matchTime;
     private int bettingMoney;
     private String bettingTeam;
     private int allocationMoney;

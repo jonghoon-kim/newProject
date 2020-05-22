@@ -32,7 +32,8 @@ public class MemberManager {
     }
 
     public void login(){
-        loginMenu();
+        inputId();
+        inputPassword();
 
         Member selectedMember = MemberDao.getInstance().getByKey(memberBean.getId());
 
@@ -60,23 +61,33 @@ public class MemberManager {
         }
     }
 
-    public boolean join(){
+    public void join(){
         //TODO: 기능구현 Member 테이블에 insert
-        loginMenu();
-        memberBean.setBalance(INITIAL_BALANCE);
-        if(MemberDao.getInstance().insert(memberBean) == true)
-            return true;
-        else {
-            System.out.println("join fail");
-            return false;
+        inputId();
+        Member selectedMember = MemberDao.getInstance().getByKey(memberBean.getId());
+        if(selectedMember!=null){
+            System.out.println("이미 존재하는 회원입니다.");
+            return;
         }
+        inputPassword();
+        memberBean.setBalance(INITIAL_BALANCE);
+        if(MemberDao.getInstance().insert(memberBean) == true){
+            System.out.println("가입이 성공하였습니다.");
+            return;
+        }
+        System.out.println("가입이 실패하였습니다.");
     }
 
-    private void loginMenu(){
+    private void inputId(){
         Scanner sc = new Scanner(System.in);
         System.out.println("아이디를 입력하세요.:");
         memberBean.setId(sc.nextLine());
+
+    }
+    private void inputPassword(){
+        Scanner sc = new Scanner(System.in);
         System.out.println("비밀번호를 입력하세요.:");
         memberBean.setPassword(sc.nextLine());
     }
+
 }

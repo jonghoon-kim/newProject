@@ -2,7 +2,10 @@ import data.BettingDao;
 import data.MatchDao;
 import data.TeamDao;
 import entities.Betting;
+import entities.Match;
+import entities.Team;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BettingManager {
@@ -17,10 +20,12 @@ public class BettingManager {
         boolean exit = false; // betting() 탈출 조건 변수
 
         
-        //MatchDao.getInstance().showMatch();
+        ArrayList<Match> matches = MatchDao.getInstance().showMatch();
+        Match match = MatchDao.getInstance().selectMatch(matches);
+        bettingBean.setMatchTime(match.getMatchTime());
+        Team team = TeamDao.getInstance().selectTeam(match);
 
-        //bettingBean.setMatchTime(MatchDao.getInstance().selectMatch());
-        //bettingBean.setBettingTeam(TeamDao.getInstance().selectTeam());
+        bettingBean.setBettingTeam(team.getTeam());
 
         int inputMoney=0;
         
@@ -39,9 +44,9 @@ public class BettingManager {
 
         }
 
-        //bettingBean.setId(MemberManager.getInstance().getCurrentMember().getId());
+        bettingBean.setId(MemberManager.getInstance().getCurrentMember().getId());
 
-        //BettingDao.getInstance().insert(bettingBean);
+        BettingDao.getInstance().insert(bettingBean);
     }
     public int inputBettingMoney(){
         //탈출시 -2 입력

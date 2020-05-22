@@ -1,8 +1,10 @@
 import data.BettingDao;
 import data.MatchDao;
+import data.MemberDao;
 import data.TeamDao;
 import entities.Betting;
 import entities.Match;
+import entities.Member;
 import entities.Team;
 
 import java.util.ArrayList;
@@ -55,6 +57,10 @@ public class BettingManager {
         bettingBean.setId(MemberManager.getInstance().getCurrentMember().getId());
 
         if(BettingDao.getInstance().insert(bettingBean)){
+            Member memberBean = MemberManager.getInstance().getCurrentMember();
+            memberBean.setBalance(memberBean.getBalance()-inputMoney);
+
+            MemberDao.getInstance().update(memberBean);
             System.out.println("베팅이 완료되었습니다.");
         }else
             {

@@ -8,14 +8,6 @@ import entities.Team;
 import java.util.Scanner;
 
 
-/*
-경기일정 보기(현재 날짜 이후 베팅가능한 경기만)
-
-자신이 걸고 싶은 경기일정-팀을 선택-돈을 걸기
-경기결과 보기(결과 나온 경기)
-팀 테이블 내용 보기
-
- */
 public class BettingProgram {
 
     private boolean exit = false;

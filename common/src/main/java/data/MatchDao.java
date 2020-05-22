@@ -134,7 +134,7 @@ public class MatchDao extends StringEntityDao<Match> {
         Match entity = new Match();
 
         entity.setHomeTeam(result.getString(1));
-        entity.setAwayTeam(result.getString(2)); // ->long
+        entity.setAwayTeam(result.getString(2));
         entity.setMatchTime(result.getString(3));
         entity.setHomeAllocation(result.getBigDecimal(4));
         entity.setAwayAllocation(result.getBigDecimal(5));
@@ -163,10 +163,10 @@ public class MatchDao extends StringEntityDao<Match> {
             @Override
             public void setValue(PreparedStatement statement) {
                 statement.setString(1, entity.getHomeTeam());
-                statement.setString(2, entity.getAwayTeam()); // -> long
+                statement.setString(2, entity.getAwayTeam());
                 statement.setString(3, entity.getMatchTime());
-                statement.setBigDecimal(4, entity.getHomeAllocation());
-                statement.setBigDecimal(4, entity.getAwayAllocation());
+                statement.setBigDecimal(4, new BigDecimal(0.0));
+                statement.setBigDecimal(5, new BigDecimal(0.0));
                 statement.setString(6, entity.getWinner());
             }
         });
@@ -184,10 +184,10 @@ public class MatchDao extends StringEntityDao<Match> {
             @Override
             public void setValue(PreparedStatement statement) {
                 statement.setString(1, entity.getHomeTeam());
-                statement.setString(2, entity.getAwayTeam()); // -> long
+                statement.setString(2, entity.getAwayTeam());
                 statement.setString(3, entity.getMatchTime());
                 statement.setBigDecimal(4, entity.getHomeAllocation());
-                statement.setBigDecimal(4, entity.getAwayAllocation());
+                statement.setBigDecimal(5, entity.getAwayAllocation());
                 statement.setString(6, entity.getWinner());
             }
         });

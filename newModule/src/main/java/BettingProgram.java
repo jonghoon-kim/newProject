@@ -27,48 +27,6 @@ public class BettingProgram {
         this.exit = exit;
     }
 
-    public Match selectMatch(){
-        System.out.println("배팅할 게임 번호를 입력하세요.");
-
-        Scanner sc = new Scanner(System.in);
-
-        String matchKey = sc.nextLine();
-        //bettingNo(pk)로 베팅할 게임 선택
-        return MatchDao.getInstance().getByKey(matchKey);
-    }
-
-    public Team selectTeam(Match match){
-        String command=null;
-        Scanner sc = new Scanner(System.in);
-        while(true){
-            System.out.println("팀을 선택하세요. 1.HomeTeam 2.AwayTeam");
-            System.out.println("->");
-
-            command = sc.nextLine();
-
-            switch (command){
-                case "1":
-                    break;
-                case "2":
-                    break;
-                default:
-                    System.out.println("입력이 잘못되었습니다.다시 입력하세요.");
-            }
-        }
-
-        //match.getAwayTeam();
-        //match.getHomeTeam()
-        //System.out.println();
-    }
-
-    public void scanInt(){
-
-    }
-    public void scanString(){
-
-    }
-
-
     public void showMenu(){
         String menuString=null;
         if(MemberManager.getInstance().getCurrentMember()!=null) {

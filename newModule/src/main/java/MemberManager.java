@@ -4,9 +4,9 @@ import entities.Member;
 import java.util.Scanner;
 
 public class MemberManager {
-
-    private Member currentMember=null;  //현재 로그인한 멤버
+    private Member currentMember = null;  //현재 로그인한 멤버
     private Member memberBean = new Member();
+    private final int INITIAL_BALANCE = 100000; // 가입 지급 금액
 
     //region singleton
     private MemberManager() {
@@ -22,7 +22,6 @@ public class MemberManager {
     }
 
     //endregion
-
 
     public Member getCurrentMember() {
         return currentMember;
@@ -42,7 +41,6 @@ public class MemberManager {
             setCurrentMember(memberBean);
             return true;
         }
-
         else
             System.out.println("패스워드가 잘못되었습니다.");
         return false;
@@ -55,16 +53,19 @@ public class MemberManager {
             System.out.println("로그아웃 하였습니다.");
             setCurrentMember(null);
         }
-
     }
 
     public boolean join(){
         //TODO: 기능구현 Member 테이블에 insert
-        //사용 안 하는 메서드
-        //초기 보유잔액(balance) INITIAL_BALANCE 사용
-        //MemberDao.getInstance().
+        loginMenu();
+        memberBean.setBalance(INITIAL_BALANCE);
+        if(MemberDao.getInstance().insert(memberBean) == true)
+            return true;
+        else {
+            System.out.println("join fail");
             return false;
         }
+    }
 
     private void loginMenu(){
         Scanner sc = new Scanner(System.in);
@@ -73,5 +74,4 @@ public class MemberManager {
         System.out.println("비밀번호를 입력하세요.:");
         memberBean.setPassword(sc.nextLine());
     }
-
 }

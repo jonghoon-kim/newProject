@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MatchDao extends StringEntityDao<Match> {
 
@@ -193,6 +194,35 @@ public class MatchDao extends StringEntityDao<Match> {
     }
 
     public void calculateBenefit(String matchTime) {
+
+    }
+    public ArrayList<Match> showMatch() {
+
+        ArrayList<Match> matches = getByWinner("");
+        for (Match match : matches) {
+            String str = String.format("hometeam:%s, awayteam:%s, matchtime:%s," +
+                            " homeallocation:%09.1f, awayallocation:%09.1f",
+                    match.getHomeTeam(), match.getAwayTeam(), match.getMatchTime(), match.getHomeAllocation(),
+                    match.getAwayAllocation());
+            System.out.println(str);
+
+        }
+        return matches;
+    }
+
+
+    public Match selectMatch(ArrayList<Match> matches) {
+        Scanner s = new Scanner(System.in);
+        System.out.println("배팅하실 경기를 입력하세요.");
+        int betting_match = s.nextInt();
+        System.out.println("배팅하신 경기:" + betting_match);
+        if(betting_match < matches.size() || betting_match < 1) {
+            System.out.println("error");
+            return null;
+        }
+
+        Match match = getByKey(matches.get(betting_match).getMatchTime());
+        return match;
 
     }
 }

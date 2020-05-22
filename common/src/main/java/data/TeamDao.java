@@ -2,6 +2,7 @@ package data;
 
 import dao.base.StringKeyEntityDao;
 import data.base.StringEntityDao;
+import entities.Match;
 import entities.Team;
 import helpers.ConnectionString;
 import lombok.SneakyThrows;
@@ -9,6 +10,7 @@ import lombok.SneakyThrows;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class TeamDao extends StringEntityDao<Team> {
     //region singleton
@@ -95,5 +97,27 @@ public class TeamDao extends StringEntityDao<Team> {
                 preparedStatement.setString(4, entity.getTeam());
             }
         });
-    }
+   }
+   public Team selectTeam(Match match){
+       Team teamBean = new Team();
+       String str = String.format("1. %s 2. %s",match.getHomeTeam(),match.getAwayTeam());
+       System.out.println(str);
+       System.out.print("베팅할 팀을 입력하세요.(번호 입력):");
+       Scanner sc = new Scanner(System.in);
+       int inputValue=0;
+       inputValue = sc.nextInt();
+       switch (inputValue){
+           case 1:
+               teamBean = TeamDao.getInstance().getByKey(match.getHomeTeam());
+               return teamBean;
+
+           case 2:
+               teamBean = TeamDao.getInstance().getByKey(match.getAwayTeam());
+               return teamBean;
+           default:
+               return null;
+
+       }
+
+   }
 }

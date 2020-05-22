@@ -37,9 +37,18 @@ public class BettingProgram {
         System.out.print("->");
     }
 
+    private String inputCommand() {
+        Scanner sc = new Scanner(System.in);
+        String inputString;
+        String command;
+
+        inputString = sc.nextLine();
+        command = inputString.toLowerCase();
+        return command;
+    }
+
     public static void main(String[] args) {
-        //tring matchTime = "";
-        //MatchDao.getInstance().calculateBenefit(matchTime);
+
         BettingManager bettingManager = new BettingManager();
         BettingProgram betting = new BettingProgram();
 
@@ -73,14 +82,6 @@ public class BettingProgram {
 
     }
 
-    private String inputCommand() {
-        Scanner sc = new Scanner(System.in);
-        String inputString;
-        String command;
 
-        inputString = sc.nextLine();
-        command = inputString.toLowerCase();
-        return command;
-    }
 
 }

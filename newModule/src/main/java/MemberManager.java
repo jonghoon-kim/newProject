@@ -62,7 +62,7 @@ public class MemberManager {
     }
 
     public void join(){
-        //TODO: 기능구현 Member 테이블에 insert
+
         inputId();
         Member selectedMember = MemberDao.getInstance().getByKey(memberBean.getId());
         if(selectedMember!=null){

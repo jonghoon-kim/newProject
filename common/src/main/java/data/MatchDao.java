@@ -199,9 +199,11 @@ public class MatchDao extends StringEntityDao<Match> {
     public ArrayList<Match> showMatch() {
 
         ArrayList<Match> matches = getByWinner("");
+        int i=0;
         for (Match match : matches) {
-            String str = String.format("hometeam:%s, awayteam:%s, matchtime:%s," +
-                            " homeallocation:%09.1f, awayallocation:%09.1f",
+            i++;
+            String str = String.format(" %d. hometeam:%s, awayteam:%s, matchtime:%s," +
+                            " homeallocation:%09.1f, awayallocation:%09.1f", i,
                     match.getHomeTeam(), match.getAwayTeam(), match.getMatchTime(), match.getHomeAllocation(),
                     match.getAwayAllocation());
             System.out.println(str);
@@ -216,12 +218,12 @@ public class MatchDao extends StringEntityDao<Match> {
         System.out.println("배팅하실 경기를 입력하세요.");
         int betting_match = s.nextInt();
         System.out.println("배팅하신 경기:" + betting_match);
-        if(betting_match < matches.size() || betting_match < 1) {
+        if(betting_match > matches.size() || betting_match < 1) {
             System.out.println("error");
             return null;
         }
 
-        Match match = getByKey(matches.get(betting_match).getMatchTime());
+        Match match = getByKey(matches.get(betting_match-1).getMatchTime());
         return match;
 
     }

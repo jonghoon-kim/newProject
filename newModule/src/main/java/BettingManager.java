@@ -16,6 +16,9 @@ public class BettingManager {
     private final int MAX_BETTING = 50000; //베팅 가능 최대금액
     
     public void betting() {
+        System.out.println(MemberManager.getInstance().getCurrentMember());
+
+
         Betting bettingBean = new Betting(); //배팅 정보를 임시로 넣을 객체
         boolean exit = false; // betting() 탈출 조건 변수
 
@@ -46,7 +49,14 @@ public class BettingManager {
 
         bettingBean.setId(MemberManager.getInstance().getCurrentMember().getId());
 
-        BettingDao.getInstance().insert(bettingBean);
+        if(BettingDao.getInstance().insert(bettingBean)){
+            System.out.println("베팅이 완료되었습니다.");
+        }else
+            {
+            System.out.println("베팅이 실패하였습니다.");
+
+        }
+
     }
     public int inputBettingMoney(){
         //탈출시 -2 입력

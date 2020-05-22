@@ -35,13 +35,14 @@ public class MemberManager {
         loginMenu();
 
         Member selectedMember = MemberDao.getInstance().getByKey(memberBean.getId());
+
         if(selectedMember == null){
             System.out.println("존재하지 않는 멤버입니다.다시 입력하세요.");
             return;
         }
 
         if(selectedMember.getPassword().equals(memberBean.getPassword())){
-            setCurrentMember(memberBean);
+            setCurrentMember(selectedMember);
             return;
         }
         else

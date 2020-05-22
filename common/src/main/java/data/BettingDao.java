@@ -147,18 +147,17 @@ public class BettingDao extends IntEntityDao<Betting> {
     @SneakyThrows
     public boolean insert(Betting entity) {
         //language=TSQL
-        String query = "insert into Betting values (?, ?, ?, ?, ?, ?)";
+        String query = "insert into Betting values (?, ?, ?, ?, ?)";
 
         return execute(query, new ParameterSetter() {
             @SneakyThrows
             @Override
             public void setValue(PreparedStatement statement) {
-                statement.setInt(1, entity.getBettingNo());
-                statement.setString(2, entity.getMatchTime()); // -> long
-                statement.setInt(3, entity.getBettingMoney());
-                statement.setString(4, entity.getBettingTeam());
-                statement.setInt(5, 0);
-                statement.setString(6, entity.getId());
+                statement.setString(1, entity.getMatchTime()); // -> long
+                statement.setInt(2, entity.getBettingMoney());
+                statement.setString(3, entity.getBettingTeam());
+                statement.setInt(4, 0);
+                statement.setString(5, entity.getId());
             }
         });
     }

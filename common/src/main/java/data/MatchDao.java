@@ -215,11 +215,11 @@ public class MatchDao extends StringEntityDao<Match> {
 
     public Match selectMatch(ArrayList<Match> matches) {
         Scanner s = new Scanner(System.in);
-        System.out.println("배팅하실 경기를 입력하세요.");
+        System.out.println("배팅하실 경기를 입력하세요.(번호 입력)");
         int betting_match = s.nextInt();
         System.out.println("배팅하신 경기:" + betting_match);
         if(betting_match > matches.size() || betting_match < 1) {
-            System.out.println("error");
+            System.out.println("존재하지 않는 경기입니다.");
             return null;
         }
 

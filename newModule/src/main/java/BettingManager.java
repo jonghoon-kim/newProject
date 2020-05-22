@@ -22,9 +22,14 @@ public class BettingManager {
         Betting bettingBean = new Betting(); //배팅 정보를 임시로 넣을 객체
         boolean exit = false; // betting() 탈출 조건 변수
 
-        
-        ArrayList<Match> matches = MatchDao.getInstance().showMatch();
-        Match match = MatchDao.getInstance().selectMatch(matches);
+        ArrayList<Match> matches = null;
+
+        Match match = null;
+        while (match == null){
+            matches = MatchDao.getInstance().showMatch();
+            match = MatchDao.getInstance().selectMatch(matches);
+        }
+
         bettingBean.setMatchTime(match.getMatchTime());
         Team team = TeamDao.getInstance().selectTeam(match);
 

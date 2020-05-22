@@ -31,21 +31,20 @@ public class MemberManager {
         this.currentMember = currentMember;
     }
 
-    public boolean login(){
+    public void login(){
         loginMenu();
 
         Member selectedMember = MemberDao.getInstance().getByKey(memberBean.getId());
         if(selectedMember == null){
             System.out.println("존재하지 않는 멤버입니다.다시 입력하세요.");
         }
-            return false;
+
         if(selectedMember.getPassword().equals(memberBean.getPassword())){
             setCurrentMember(memberBean);
-            return true;
         }
         else
             System.out.println("패스워드가 잘못되었습니다.");
-        return false;
+
     }
 
     public void logout(){

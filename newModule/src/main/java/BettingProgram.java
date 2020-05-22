@@ -1,9 +1,5 @@
-import data.BettingDao;
-import data.MatchDao;
-import entities.Betting;
-import entities.Match;
 import entities.Member;
-import entities.Team;
+import util.ExitStatus;
 
 import java.util.Scanner;
 
@@ -11,14 +7,6 @@ import java.util.Scanner;
 public class BettingProgram {
 
     private boolean exit = false;
-
-    public boolean isExit() {
-        return exit;
-    }
-
-    public void setExit(boolean exit) {
-        this.exit = exit;
-    }
 
     public void showMenu(){
         Member currentMember = MemberManager.getInstance().getCurrentMember();
@@ -46,6 +34,8 @@ public class BettingProgram {
 
     public static void main(String[] args) {
 
+        ExitStatus exit = new ExitStatus();
+
         BettingManager bettingManager = new BettingManager();
         BettingProgram betting = new BettingProgram();
 
@@ -66,14 +56,14 @@ public class BettingProgram {
                     bettingManager.betting();
                     break;
                 case "x":
-                    betting.setExit(true);
+                    exit.setEscapeStatus();
                     break;
                 default:
                     System.out.println("잘못된 명령을 입력하였습니다.");
                     break;
 
             }
-            if(betting.isExit())
+            if(exit.isEscape())
                 break;
         }
 

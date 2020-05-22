@@ -6,6 +6,7 @@ import entities.Match;
 import entities.Team;
 import helpers.ConnectionString;
 import lombok.SneakyThrows;
+import util.ExitStatus;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -98,15 +99,18 @@ public class TeamDao extends StringEntityDao<Team> {
             }
         });
    }
-   public Team selectTeam(Match match){
+   public Team selectTeam(ExitStatus exit, Match match){
        Team teamBean = new Team();
        String str = String.format("1. %s 2. %s",match.getHomeTeam(),match.getAwayTeam());
        System.out.println(str);
-       System.out.print("베팅할 팀을 입력하세요.(번호 입력):");
+       System.out.println("베팅할 팀의 번호를 입력하세요.("+exit.ESCAPE + " 를 입력하면 베팅 취소");
        Scanner sc = new Scanner(System.in);
        int inputValue=0;
        inputValue = sc.nextInt();
        switch (inputValue){
+           case -2:
+               exit.setEscapeStatus();
+               return null;
            case 1:
                teamBean = TeamDao.getInstance().getByKey(match.getHomeTeam());
                return teamBean;

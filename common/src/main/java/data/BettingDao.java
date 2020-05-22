@@ -52,9 +52,9 @@ public class BettingDao extends IntEntityDao<Betting> {
         Betting entity = new Betting();
 
         entity.setBettingNo(result.getInt(1));
-        entity.setMatchTime(result.getString(2)); // ->long
+        entity.setMatchTime(result.getString(2));
         entity.setBettingMoney(result.getInt(3));
-        entity.setBettingTeam(result.getString("Ulsan"));
+        entity.setBettingTeam(result.getString(4));
         entity.setBettingNo(result.getInt(5));
         return entity;
     }

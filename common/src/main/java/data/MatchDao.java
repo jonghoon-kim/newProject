@@ -5,6 +5,7 @@ import data.base.StringEntityDao;
 import entities.Match;
 import helpers.ConnectionString;
 import lombok.SneakyThrows;
+import util.ExitStatus;
 
 import java.math.BigDecimal;
 import java.sql.PreparedStatement;
@@ -212,13 +213,19 @@ public class MatchDao extends StringEntityDao<Match> {
         return matches;
     }
 
-
-    public Match selectMatch(ArrayList<Match> matches) {
+    public Match selectMatch(ExitStatus exit,ArrayList<Match> matches) {
         Scanner s = new Scanner(System.in);
-        System.out.println("배팅하실 경기를 입력하세요.(번호 입력)");
+        System.out.println("베팅하실 경기 번호를 입력하세요. ("+ exit.ESCAPE+" 입력시 베팅 취소)");
+
         int betting_match = s.nextInt();
-        System.out.println("배팅하신 경기:" + betting_match);
-        if(betting_match > matches.size() || betting_match < 1) {
+        System.out.println("베팅하신 경기:" + betting_match);
+
+        if(betting_match == exit.ESCAPE){   //베팅 포기 탈출 조건
+            exit.setEscapeStatus();
+            return null;
+        }
+
+        if(betting_match > matches.size() || betting_match <= 0) {
             System.out.println("존재하지 않는 경기입니다.");
             return null;
         }

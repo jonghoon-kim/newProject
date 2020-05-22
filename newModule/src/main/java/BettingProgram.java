@@ -2,6 +2,7 @@ import data.BettingDao;
 import data.MatchDao;
 import entities.Betting;
 import entities.Match;
+import entities.Member;
 import entities.Team;
 
 import java.util.Scanner;
@@ -28,8 +29,12 @@ public class BettingProgram {
     }
 
     public void showMenu(){
+        Member currentMember = MemberManager.getInstance().getCurrentMember();
+
         String menuString=null;
-        if(MemberManager.getInstance().getCurrentMember()!=null) {
+        if(currentMember!=null) {
+            String statusString = String.format("id : %s | balance : %d",currentMember.getId(),currentMember.getBalance());
+            System.out.println(statusString);
             menuString = "MENU | Logout(O) Betting(B) Exit(X)";
         } else
             menuString = "MENU | Login(L) Join(J) Exit(X)";
